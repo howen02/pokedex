@@ -1,41 +1,26 @@
+import { useState } from 'react';
 import type { MetaFunction } from "@remix-run/node";
+import Navbar from "~/components/Navbar";
+import PokemonDisplay from "~/components/PokemonDisplay";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+    return [
+        { title: "Pokedex App" },
+        { name: "description", content: "Find your favourite pokemon!" },
+    ];
 };
 
 export default function Index() {
-  return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
+    const [pokemonData, setPokemonData] = useState<any[]>([]);
+
+    const handlePokemonData = (data: any[]) => {
+        setPokemonData(data);
+    };
+
+    return (
+        <div className="flex flex-col justify-center">
+            <Navbar onPokemonData={handlePokemonData} />
+            <PokemonDisplay pokemonData={pokemonData} />
+        </div>
+    );
 }
