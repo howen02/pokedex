@@ -1,46 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Statbar from "./Statbar";
-import { GraphQLClient } from "graphql-request";
 
-const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
-const PokeAPIquery = `
-    query MyQuery {
-        pokemon_v2_pokemon {
-            pokemon_v2_pokemonstats(where: {pokemon_id: {_eq: 1}}) {
-                base_stat
-                pokemon_v2_stat {
-                    name
-                }
-            }
-        }
-    }
-  `;
-
-const PokemonStatsAndMoves = ({ pokemonId }: { pokemonId: number }) => {
+const PokemonStatsAndMoves = ({ stats }: { stats: any[] }) => {
     const [toggleStatMove, setToggleStatMove] = useState(false);
-    const [pokemonStatJSON, setPokemonStatJSON] = useState<any>(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data: any = await client.request(PokeAPIquery, {
-                    id: 1,
-                });
-                setPokemonStatJSON(data);
-                console.log(data)
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, [pokemonId]);
-
-    if (!pokemonStatJSON) {
-        return <div></div>;
-    }
-
-    const pokemonStatData =
-        pokemonStatJSON.pokemon_v2_pokemon.pokemon_v2_pokemonstats;
     const [
         { base_stat: hp },
         { base_stat: attack },
@@ -48,7 +11,7 @@ const PokemonStatsAndMoves = ({ pokemonId }: { pokemonId: number }) => {
         { base_stat: specialAttack },
         { base_stat: specialDefense },
         { base_stat: speed },
-    ] = pokemonStatData;
+    ] = stats;
 
     return (
         <div className="flex flex-col h-full">
