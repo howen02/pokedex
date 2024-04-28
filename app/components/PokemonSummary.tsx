@@ -2,31 +2,31 @@ import React, { useState } from "react";
 import PokemonTypeCard from "./PokemonTypeCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { parseLocalStorageString, removeDashAndCapitalise } from "~/utils/utils";
 
 interface PokemonSummaryProps {
-    name: string;
     id: number;
-    types: any[];
-    baseExperience: number;
-    height: number;
-    weight: number;
     spriteUrl: string;
+    summaryData: any;
+    types: any[];
 }
 
 const PokemonSummary: React.FC<PokemonSummaryProps> = ({
-    name,
     id,
-    types,
-    baseExperience,
-    height,
-    weight,
     spriteUrl,
+    summaryData,
+    types,
 }) => {
+    const {
+        name: rawName,
+        weight,
+        height,
+        base_experience: baseExperience,
+    } = summaryData;
+    const name = removeDashAndCapitalise(rawName);
     const storedTeamIds = localStorage.getItem("team");
     const initialTeamIds: number[] = storedTeamIds
-        ? storedTeamIds
-              .split(",")
-              .map((idString) => parseInt(idString.trim(), 10))
+        ? parseLocalStorageString(storedTeamIds)
         : [];
     const [teamIds, setTeamIds] = useState<number[]>(initialTeamIds);
 

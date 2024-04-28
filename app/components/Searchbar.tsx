@@ -41,6 +41,7 @@ const Searchbar = () => {
         setSearchResults(data.pokemon_v2_pokemon);
         setIsOpen(true);
     };
+    
     const delayedHandleSearch = debounce(handleSearch, 500);
 
     useEffect(() => {
