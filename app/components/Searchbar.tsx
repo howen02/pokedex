@@ -1,6 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 import { useState } from "react";
 import { useNavigate } from "@remix-run/react";
+import { removeDashAndCapitalise } from "~/utils/utils";
 
 interface PokemonSearchData {
     id: number;
@@ -73,7 +74,7 @@ const Searchbar = () => {
                                     handleDropdownItemClick(pokemon.id);
                                 }}
                             >
-                                {pokemon.name}
+                                {removeDashAndCapitalise(pokemon.name)}
                             </li>
                         ))}
                     </ul>

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import Statbar from "./Statbar";
+import MoveCard from "./MoveCard";
 
-const PokemonStatsAndMoves = ({ stats }: { stats: any[] }) => {
+interface PokemonStatsAndMovesProps {
+    stats: any[];
+    moves: any[];
+}
+
+const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
+    stats,
+    moves,
+}) => {
     const [toggleStatMove, setToggleStatMove] = useState(false);
-
-    const [
-        { base_stat: hp },
-        { base_stat: attack },
-        { base_stat: defense },
-        { base_stat: specialAttack },
-        { base_stat: specialDefense },
-        { base_stat: speed },
-    ] = stats;
 
     return (
         <div className="flex flex-col h-full">
@@ -39,19 +39,26 @@ const PokemonStatsAndMoves = ({ stats }: { stats: any[] }) => {
                         toggleStatMove ? "hidden" : ""
                     } bg-blue-500 p-4 h-full`}
                 >
-                    <Statbar statName="HP" statValue={hp} />
-                    <Statbar statName="Attack" statValue={attack} />
-                    <Statbar statName="Defence" statValue={defense} />
-                    <Statbar statName="Special Attack" statValue={specialAttack} />
-                    <Statbar statName="Special Defence" statValue={specialDefense} />
-                    <Statbar statName="Speed" statValue={speed} />
+                    {stats.map((stat, index) => (
+                        <Statbar
+                            key={index}
+                            statName={stat.pokemon_v2_stat.name}
+                            statValue={stat.base_stat}
+                        />
+                    ))}
                 </div>
                 <div
                     className={`${
                         toggleStatMove ? "" : "hidden"
-                    } bg-red-500 p-4 h-full`}
+                    } bg-red-500 p-4 h-full grid grid-cols-3 gap-4 p-8`}
                 >
-                    MOVES
+                    {moves.map((move, index) => (
+                        <MoveCard
+                            key={index}
+                            moveName={move.pokemon_v2_move.name}
+                            moveLevel={move.level}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

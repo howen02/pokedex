@@ -8,7 +8,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="bg-blue-900 flex gap-5 px-5 py-6 items-center">
+        <div className="bg-blue-900 flex gap-5 px-5 py-6 items-center fixed top-0 w-full">
             <h1 className="text-4xl text-yellow-400 font-semibold hover:cursor-pointer" onClick={() => returnToHomeScreen()}>Pokemon</h1>
             <Searchbar />
         </div>

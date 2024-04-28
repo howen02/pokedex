@@ -15,12 +15,20 @@ const PokeAPIquery = `
             height
             base_experience
 
+            pokemon_v2_pokemonmoves {
+                level
+                pokemon_v2_move {
+                  name
+                }
+            }
+
             pokemon_v2_pokemonstats {
                 base_stat
+
                 pokemon_v2_stat {
                   name
                 }
-              }
+            }
         }
 
         pokemon_v2_pokemonformsprites(where: {id: {_eq: $id}}) {
@@ -64,9 +72,10 @@ export default function PokemonID() {
         pokemonJSON.pokemon_v2_pokemonformsprites[0].sprites.front_default;
     const pokemonTypesData = pokemonJSON.pokemon_v2_pokemontype;
     const pokemonStatsData = pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonstats
+    const pokemonMovesData = pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonmoves
 
     return (
-        <div className="flex h-screen flex-col pt-5">
+        <div className="flex h-screen flex-col pt-28">
             <div className="h-1/2 mx-20">
                 <PokemonSummary
                     name={pokemonData.name}
@@ -78,7 +87,7 @@ export default function PokemonID() {
                 />
             </div>
             <div className="h-1/2 flex-grow">
-                <PokemonStatsAndMoves stats={pokemonStatsData} />
+                <PokemonStatsAndMoves stats={pokemonStatsData} moves={pokemonMovesData}/>
             </div>
         </div>
     );
