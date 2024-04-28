@@ -20,11 +20,9 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
     spriteUrl,
 }) => {
     return (
-        <div className="flex flex-col items-left mx-20 ">
-            <h1 className="text-4xl font-bold">
-                {capitaliseString(name)}
-            </h1>
-            <div className="flex gap-8 text-xl font-semibold my-2">
+        <div className="flex flex-col items-left">
+            <h1 className="text-4xl font-bold">{capitaliseString(name)}</h1>
+            <div className="flex gap-8 text-xl font-semibold my-4">
                 <img
                     src={spriteUrl}
                     alt={name}
@@ -36,18 +34,11 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     <div className="flex">
                         <PokemonTypeCard types={types} />
                     </div>
-
-                    <div className="flex gap-2">
-                        <div className="text-end">
-                            Base Experience <br />
-                            Height <br />
-                            Weight <br />
-                        </div>
-                        <div>
-                            {baseExperience} <br />
-                            {height} <br />
-                            {weight} <br />
-                        </div>
+                    <div className="flex flex-col text-right">
+                        <div>Base Experience {baseExperience}</div>
+                        <div>Height {height}</div>
+                        <div>Weight {weight}</div>
+                        <br />
                     </div>
                 </div>
             </div>

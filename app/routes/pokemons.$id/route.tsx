@@ -3,6 +3,7 @@ import { useParams } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 import PokemonStatsAndMoves from "~/components/PokemonStatsAndMoves";
 import PokemonSummary from "~/components/PokemonSummary";
+import Loading from "~/components/Loading";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
 
@@ -48,11 +49,7 @@ export default function PokemonID() {
     }, [pokemonId]);
 
     if (!pokemonJSON) {
-        return (
-            <div className="text-4xl font-bold flex justify-center items-center h-screen">
-                Loading...
-            </div>
-        );
+        return <Loading />;
     }
 
     const pokemonData = pokemonJSON.pokemon_v2_pokemon[0];
@@ -62,7 +59,7 @@ export default function PokemonID() {
 
     return (
         <div className="flex h-screen flex-col pt-5">
-            <div className="h-1/2">
+            <div className="h-1/2 mx-20">
                 <PokemonSummary
                     name={pokemonData.name}
                     types={pokemonTypesData}
@@ -73,7 +70,7 @@ export default function PokemonID() {
                 />
             </div>
             <div className="h-1/2 flex-grow">
-                <PokemonStatsAndMoves />
+                <PokemonStatsAndMoves pokemonId={pokemonId} />
             </div>
         </div>
     );
