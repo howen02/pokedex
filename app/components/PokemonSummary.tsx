@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PokemonTypeCard from "./PokemonTypeCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface PokemonSummaryProps {
     name: string;
@@ -30,26 +32,30 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
 
     function handleAddClick(id: number): void {
         if (teamIds.includes(id)) {
-            alert(`${name} already registered in Pokedex`);
+            toast.dismiss();
+            toast.error(`${name} already registered in Pokedex`);
             return;
         }
 
         const newTeamIds = [...teamIds, id];
         setTeamIds(newTeamIds);
         localStorage.setItem("team", JSON.stringify(newTeamIds));
-        alert(`Added ${name} to Pokedex`);
+        toast.dismiss();
+        toast.success(`Added ${name} to Pokedex`);
     }
 
     function handleRemoveClick(id: number): void {
         if (!teamIds.includes(id)) {
-            alert(`${name} not registered in Pokedex`);
+            toast.dismiss();
+            toast.error(`${name} not registered in Pokedex`);
             return;
         }
 
         const newTeamIds = teamIds.filter((item) => item !== id);
         setTeamIds(newTeamIds);
         localStorage.setItem("team", JSON.stringify(newTeamIds));
-        alert(`Removed ${name} from Pokedex`);
+        toast.dismiss();
+        toast.success(`Removed ${name} from Pokedex`);
     }
 
     return (
@@ -95,6 +101,7 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

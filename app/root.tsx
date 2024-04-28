@@ -18,6 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" translate="no">
             <head>
+            <meta name="google" content="notranslate"/>
                 <meta charSet="utf-8" />
                 <meta
                     name="viewport"

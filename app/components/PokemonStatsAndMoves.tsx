@@ -20,7 +20,7 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                     onClick={() => {
                         setToggleStatMove(false);
                     }}
-                    className="bg-blue-500 py-1 px-4 rounded-t-lg text-xl font-semibold border border-black border-b-0"
+                    className="bg-blue-500 py-1 px-4 rounded-t-lg text-xl font-medium"
                 >
                     Stats
                 </button>
@@ -28,7 +28,7 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                     onClick={() => {
                         setToggleStatMove(true);
                     }}
-                    className="bg-red-500 py-1 px-4 rounded-t-lg text-xl font-semibold border border-black border-b-0"
+                    className="bg-red-500 py-1 px-4 rounded-t-lg text-xl font-medium"
                 >
                     Moves
                 </button>
@@ -37,7 +37,7 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                 <div
                     className={`${
                         toggleStatMove ? "hidden" : ""
-                    } bg-blue-500 p-4 h-full border border-black border-b-0`}
+                    } bg-blue-500 p-4 h-full`}
                 >
                     {stats.map((stat, index) => (
                         <Statbar
@@ -50,7 +50,7 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                 <div
                     className={`${
                         toggleStatMove ? "" : "hidden"
-                    } bg-red-500 h-full grid grid-cols-3 gap-4 p-8 border border-black`}
+                    } bg-red-500 h-full grid grid-cols-3 gap-4 p-8`}
                 >
                     {moves.map((move, index) => (
                         <MoveCard

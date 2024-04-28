@@ -2,13 +2,12 @@ import type { MetaFunction } from "@remix-run/node";
 import PokemonDisplay from "~/components/PokemonDisplay";
 import { GraphQLClient } from "graphql-request";
 import { useEffect, useState } from "react";
-import Loading from "~/components/Loading";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
 
 const PokeAPIquery = `
-    query MyQuery {
-        pokemon_v2_pokemon(where: {id: {_in: [1, 2, 3, 4, 5, 6, 7, 8, 9]}}) {
+    query MyQuery($ids: [Int!]!) {
+        pokemon_v2_pokemon(where: {id: {_in: $ids}}) {
         name
         id
         pokemon_v2_pokemontypes {
@@ -44,13 +43,10 @@ export default function Index() {
             : [];
 
         const fetchData = async () => {
-            console.log(initialTeamIds);
-
             try {
                 const data: any = await client.request(PokeAPIquery, {
-                    // ids: initialTeamIds,
+                    ids: initialTeamIds
                 });
-                console.log(data);
                 setPokedexData(data);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -60,17 +56,5 @@ export default function Index() {
         fetchData();
     }, []);
 
-    if (!pokedexData) {
-        return <Loading />;
-    }
-
-    return (
-        <div>
-            {pokedexData ? (
-                <PokemonDisplay pokedexJSON={pokedexData} />
-            ) : (
-                <div></div>
-            )}
-        </div>
-    );
+    return <PokemonDisplay pokedexJSON={pokedexData} />;
 }
