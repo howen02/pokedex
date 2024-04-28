@@ -1,9 +1,9 @@
-import React from "react";
-import { capitaliseString } from "~/utils/utils";
+import React, { useState } from "react";
 import PokemonTypeCard from "./PokemonTypeCard";
 
 interface PokemonSummaryProps {
     name: string;
+    id: number;
     types: any[];
     baseExperience: number;
     height: number;
@@ -13,15 +13,48 @@ interface PokemonSummaryProps {
 
 const PokemonSummary: React.FC<PokemonSummaryProps> = ({
     name,
+    id,
     types,
     baseExperience,
     height,
     weight,
     spriteUrl,
 }) => {
+    const storedTeamIds = localStorage.getItem("team");
+    const initialTeamIds: number[] = storedTeamIds
+        ? storedTeamIds
+              .split(",")
+              .map((idString) => parseInt(idString.trim(), 10))
+        : [];
+    const [teamIds, setTeamIds] = useState<number[]>(initialTeamIds);
+
+    function handleAddClick(id: number): void {
+        if (teamIds.includes(id)) {
+            alert(`${name} already registered in Pokedex`);
+            return;
+        }
+
+        const newTeamIds = [...teamIds, id];
+        setTeamIds(newTeamIds);
+        localStorage.setItem("team", JSON.stringify(newTeamIds));
+        alert(`Added ${name} to Pokedex`);
+    }
+
+    function handleRemoveClick(id: number): void {
+        if (!teamIds.includes(id)) {
+            alert(`${name} not registered in Pokedex`);
+            return;
+        }
+
+        const newTeamIds = teamIds.filter((item) => item !== id);
+        setTeamIds(newTeamIds);
+        localStorage.setItem("team", JSON.stringify(newTeamIds));
+        alert(`Removed ${name} from Pokedex`);
+    }
+
     return (
         <div className="flex flex-col items-left">
-            <h1 className="text-4xl font-bold">{capitaliseString(name)}</h1>
+            <h1 className="text-4xl font-bold">{name}</h1>
             <div className="flex gap-8 text-xl font-semibold my-4">
                 <img
                     src={spriteUrl}
@@ -34,11 +67,31 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     <div className="flex">
                         <PokemonTypeCard types={types} />
                     </div>
-                    <div className="flex flex-col text-right">
-                        <div>Base Experience {baseExperience}</div>
-                        <div>Height {height}</div>
-                        <div>Weight {weight}</div>
-                        <br />
+                    <div className="flex gap-2">
+                        <div className="flex flex-col text-right">
+                            <p>Base Experience</p>
+                            <p>Height</p>
+                            <p>Weight</p>
+                        </div>
+                        <div className="flex flex-col">
+                            <p>{baseExperience}</p>
+                            <p>{height}</p>
+                            <p>{weight}</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-2 pt-2">
+                        <button
+                            className="border-1 border-black shadow-md bg-green-500 py-2 px-4 rounded-lg text-white"
+                            onClick={() => handleAddClick(id)}
+                        >
+                            Add
+                        </button>
+                        <button
+                            className="border-1 border-black shadow-md bg-red-500 py-2 px-4 rounded-lg text-white"
+                            onClick={() => handleRemoveClick(id)}
+                        >
+                            Remove
+                        </button>
                     </div>
                 </div>
             </div>

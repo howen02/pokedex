@@ -4,6 +4,7 @@ import { GraphQLClient } from "graphql-request";
 import PokemonStatsAndMoves from "~/components/PokemonStatsAndMoves";
 import PokemonSummary from "~/components/PokemonSummary";
 import Loading from "~/components/Loading";
+import { removeDashAndCapitalise } from "~/utils/utils";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
 
@@ -78,7 +79,8 @@ export default function PokemonID() {
         <div className="flex h-screen flex-col pt-6">
             <div className="h-1/2 mx-20">
                 <PokemonSummary
-                    name={pokemonData.name}
+                    name={removeDashAndCapitalise(pokemonData.name)}
+                    id={pokemonId}
                     types={pokemonTypesData}
                     baseExperience={pokemonData.base_experience}
                     height={pokemonData.height}
