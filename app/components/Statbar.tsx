@@ -8,8 +8,8 @@ interface StatbarProps {
 
 const Statbar: React.FC<StatbarProps> = ({ statName, statValue }) => {
     return (
-        <div className="flex items-center text-nowrap text-slate-100 text-lg gap-4 py-2">
-            <span className="font-semibold w-32 text-right">
+        <div className="flex items-center text-nowrap text-slate-100 text-xl gap-4 py-2">
+            <span className="font-semibold w-36 text-right">
                 {removeDashAndCapitalise(statName)}
             </span>
             <span className="w-6 font-semibold">{statValue}</span>

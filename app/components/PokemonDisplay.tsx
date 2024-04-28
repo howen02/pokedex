@@ -1,8 +1,28 @@
 import React from "react";
 import PokemonCard from "./PokemonCard";
 
+interface PokemonType {
+    id: number;
+    name: string;
+}
+
+interface PokemonSprites {
+    sprites: {
+        front_default: string;
+    }[];
+}
+
+interface Pokemon {
+    id: number;
+    name: string;
+    pokemon_v2_pokemontypes: PokemonType[];
+    pokemon_v2_pokemonsprites: PokemonSprites[];
+}
+
 interface PokemonDisplayProps {
-    pokedexJSON: any[];
+    pokedexJSON: {
+        pokemon_v2_pokemon: Pokemon[];
+    };
 }
 
 const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ pokedexJSON }) => {

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 import PokemonStatsAndMoves from "~/components/PokemonStatsAndMoves";
 import PokemonSummary from "~/components/PokemonSummary";
 import { removeDashAndCapitalise } from "~/utils/utils";
+import Loading from "~/components/Loading";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
 
@@ -50,6 +51,13 @@ export default function PokemonID() {
     const pokemonId = parseInt(params.id || "");
 
     useEffect(() => {
+        document.body.classList.add("overflow-y-hidden");
+        return () => {
+            document.body.classList.remove("overflow-y-hidden");
+        };
+    }, []);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const data: any = await client.request(PokeAPIquery, {
@@ -64,7 +72,7 @@ export default function PokemonID() {
     }, [pokemonId]);
 
     if (!pokemonJSON) {
-        return <span className="loading loading-spinner text-warning"></span>;
+        return <Loading />;
     }
 
     const pokemonData = pokemonJSON.pokemon_v2_pokemon[0];
@@ -77,8 +85,8 @@ export default function PokemonID() {
         pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonmoves;
 
     return (
-        <div className="flex h-screen flex-col">
-            <div className="h-3/5 mx-20 mt-10">
+        <div className="flex h-screen flex-col overflow-hidden">
+            <div className="h-1/2 mx-20 mt-10">
                 <PokemonSummary
                     name={removeDashAndCapitalise(pokemonData.name)}
                     id={pokemonId}

@@ -2,23 +2,24 @@ import type { MetaFunction } from "@remix-run/node";
 import PokemonDisplay from "~/components/PokemonDisplay";
 import { GraphQLClient } from "graphql-request";
 import { useEffect, useState } from "react";
+import { parseLocalStorageString } from "~/utils/utils";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
 
 const PokeAPIquery = `
     query MyQuery($ids: [Int!]!) {
         pokemon_v2_pokemon(where: {id: {_in: $ids}}) {
-        name
-        id
-        pokemon_v2_pokemontypes {
-            pokemon_v2_type {
-                name
-                id
+            name
+            id
+            pokemon_v2_pokemontypes {
+                pokemon_v2_type {
+                    name
+                    id
+                }
             }
-        }
-        pokemon_v2_pokemonsprites {
-            sprites
-        }
+            pokemon_v2_pokemonsprites {
+                sprites
+            }
         }
     }
 `;
@@ -36,16 +37,13 @@ export default function Index() {
     useEffect(() => {
         const storedTeamIds = localStorage.getItem("team");
         const initialTeamIds: number[] = storedTeamIds
-            ? storedTeamIds
-                  .split(",")
-                  .map((idString) => parseInt(idString.trim(), 10))
-                  .filter((n) => !isNaN(n))
+            ? parseLocalStorageString(storedTeamIds)
             : [];
 
         const fetchData = async () => {
             try {
                 const data: any = await client.request(PokeAPIquery, {
-                    ids: initialTeamIds
+                    ids: initialTeamIds,
                 });
                 setPokedexData(data);
             } catch (error) {
@@ -56,5 +54,9 @@ export default function Index() {
         fetchData();
     }, []);
 
-    return <PokemonDisplay pokedexJSON={pokedexData} />;
+    return (
+        <div className="overflow-y-auto h-full">
+            <PokemonDisplay pokedexJSON={pokedexData} />
+        </div>
+    );
 }
