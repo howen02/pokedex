@@ -32,7 +32,7 @@ const PokemonTypeCard = ({ types }: { types: any[] }) => {
             {types.map((item, index) => (
                 <div
                     key={index}
-                    className={`text-white px-3 py-1 rounded-md ${getTypeColor(
+                    className={`text-white px-3 py-1 rounded-md font-bold ${getTypeColor(
                         item.pokemon_v2_type.id
                     )}`}
                 >

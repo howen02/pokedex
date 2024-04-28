@@ -7,9 +7,9 @@ interface MoveCardProps {
 
 const MoveCard: React.FC<MoveCardProps> = ({ moveName, moveLevel }) => {
     return (
-        <div className="border-4 border-black rounded-lg p-6 hover:scale-105">
-            <div className="font-semibold text-lg">{removeDashAndCapitalise(moveName)}</div>
-            <div>Level {moveLevel}</div>
+        <div className="bg-yellow-500 text-slate-100 rounded-lg p-6 hover:scale-105">
+            <div className="font-semibold text-xl">{removeDashAndCapitalise(moveName)}</div>
+            <div className="italic">Level {moveLevel}</div>
         </div>
     );
 };

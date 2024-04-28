@@ -8,12 +8,14 @@ interface StatbarProps {
 
 const Statbar: React.FC<StatbarProps> = ({ statName, statValue }) => {
     return (
-        <div className="flex gap-2 items-center whitespace-nowrap text-right text-lg font-medium">
-            <div className="w-40">{removeDashAndCapitalise(statName)}</div>
-            <div>{statValue}</div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div className="flex items-center text-nowrap text-slate-100 text-lg gap-4 py-2">
+            <span className="font-semibold w-32 text-right">
+                {removeDashAndCapitalise(statName)}
+            </span>
+            <span className="w-6 font-semibold">{statValue}</span>
+            <div className="flex-grow rounded-full h-2.5 bg-slate-100">
                 <div
-                    className="bg-white h-2.5 rounded-full"
+                    className="bg-yellow-400 h-2.5 rounded-full"
                     style={{ width: `${(statValue / 255) * 100}%` }}
                 />
             </div>

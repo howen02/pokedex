@@ -15,12 +15,12 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex ml-20">
+            <div className="flex ml-20 text-slate-100 font-bold">
                 <button
                     onClick={() => {
                         setToggleStatMove(false);
                     }}
-                    className="bg-blue-500 py-1 px-4 rounded-t-lg text-xl font-medium"
+                    className="bg-blue-900 py-1 px-4 rounded-t-lg text-xl hover:text-yellow-400"
                 >
                     Stats
                 </button>
@@ -28,16 +28,16 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                     onClick={() => {
                         setToggleStatMove(true);
                     }}
-                    className="bg-red-500 py-1 px-4 rounded-t-lg text-xl font-medium"
+                    className="bg-yellow-400  py-1 px-4 rounded-t-lg text-xl hover:text-blue-900"
                 >
                     Moves
                 </button>
             </div>
-            <div className="flex-1">
+            <div className="h-full">
                 <div
-                    className={`${
+                    className={`bg-blue-900 px-4 py-8 h-full ${
                         toggleStatMove ? "hidden" : ""
-                    } bg-blue-500 p-4 h-full`}
+                    }`}
                 >
                     {stats.map((stat, index) => (
                         <Statbar
@@ -48,9 +48,9 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                     ))}
                 </div>
                 <div
-                    className={`${
+                    className={`bg-yellow-400 grid grid-cols-3 gap-4 p-8 max-h-80 overflow-y-auto ${
                         toggleStatMove ? "" : "hidden"
-                    } bg-red-500 h-full grid grid-cols-3 gap-4 p-8`}
+                    }`}
                 >
                     {moves.map((move, index) => (
                         <MoveCard

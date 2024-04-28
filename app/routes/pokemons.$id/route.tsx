@@ -3,7 +3,6 @@ import { useParams } from "@remix-run/react";
 import { GraphQLClient } from "graphql-request";
 import PokemonStatsAndMoves from "~/components/PokemonStatsAndMoves";
 import PokemonSummary from "~/components/PokemonSummary";
-import Loading from "~/components/Loading";
 import { removeDashAndCapitalise } from "~/utils/utils";
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
@@ -65,19 +64,21 @@ export default function PokemonID() {
     }, [pokemonId]);
 
     if (!pokemonJSON) {
-        return <Loading />;
+        return <span className="loading loading-spinner text-warning"></span>;
     }
 
     const pokemonData = pokemonJSON.pokemon_v2_pokemon[0];
     const spriteUrl =
         pokemonJSON.pokemon_v2_pokemonformsprites[0].sprites.front_default;
     const pokemonTypesData = pokemonJSON.pokemon_v2_pokemontype;
-    const pokemonStatsData = pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonstats
-    const pokemonMovesData = pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonmoves
+    const pokemonStatsData =
+        pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonstats;
+    const pokemonMovesData =
+        pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonmoves;
 
     return (
-        <div className="flex h-screen flex-col pt-6">
-            <div className="h-1/2 mx-20">
+        <div className="flex h-screen flex-col">
+            <div className="h-3/5 mx-20 mt-10">
                 <PokemonSummary
                     name={removeDashAndCapitalise(pokemonData.name)}
                     id={pokemonId}
@@ -88,8 +89,11 @@ export default function PokemonID() {
                     spriteUrl={spriteUrl}
                 />
             </div>
-            <div className="h-1/2 flex-grow">
-                <PokemonStatsAndMoves stats={pokemonStatsData} moves={pokemonMovesData}/>
+            <div className="flex-grow">
+                <PokemonStatsAndMoves
+                    stats={pokemonStatsData}
+                    moves={pokemonMovesData}
+                />
             </div>
         </div>
     );

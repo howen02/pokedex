@@ -33,7 +33,7 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
     function handleAddClick(id: number): void {
         if (teamIds.includes(id)) {
             toast.dismiss();
-            toast.error(`${name} already registered in Pokedex`);
+            toast.error(`${name} is already registered in Pokedex`);
             return;
         }
 
@@ -41,13 +41,13 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
         setTeamIds(newTeamIds);
         localStorage.setItem("team", JSON.stringify(newTeamIds));
         toast.dismiss();
-        toast.success(`Added ${name} to Pokedex`);
+        toast.success(`Registered ${name} to Pokedex`, );
     }
 
     function handleRemoveClick(id: number): void {
         if (!teamIds.includes(id)) {
             toast.dismiss();
-            toast.error(`${name} not registered in Pokedex`);
+            toast.error(`${name} is not registered in Pokedex`);
             return;
         }
 
@@ -61,7 +61,7 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
     return (
         <div className="flex flex-col items-left">
             <h1 className="text-4xl font-bold">{name}</h1>
-            <div className="flex gap-8 text-xl font-semibold my-4">
+            <div className="flex gap-8 my-4">
                 <img
                     src={spriteUrl}
                     alt={name}
@@ -69,11 +69,11 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     height={300}
                     className="bg-slate-100 rounded-lg"
                 />
-                <div>
-                    <div className="flex">
+                <div className="mx-10">
+                    <div className="flex mb-4 text-lg">
                         <PokemonTypeCard types={types} />
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 my-4 text-2xl">
                         <div className="flex flex-col text-right">
                             <p>Base Experience</p>
                             <p>Height</p>
@@ -85,15 +85,15 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                             <p>{weight}</p>
                         </div>
                     </div>
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-2 text-lg font-bold">
                         <button
-                            className="border-1 border-black shadow-md bg-green-500 py-2 px-4 rounded-lg text-white"
+                            className="border-1 border-black shadow-md bg-green-500 py-2 px-4 rounded-lg text-white hover:scale-105"
                             onClick={() => handleAddClick(id)}
                         >
                             Add
                         </button>
                         <button
-                            className="border-1 border-black shadow-md bg-red-500 py-2 px-4 rounded-lg text-white"
+                            className="border-1 border-black shadow-md bg-red-500 py-2 px-4 rounded-lg text-white hover:scale-105"
                             onClick={() => handleRemoveClick(id)}
                         >
                             Remove
@@ -101,7 +101,7 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            <ToastContainer/>
         </div>
     );
 };

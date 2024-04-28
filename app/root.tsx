@@ -18,7 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" translate="no">
             <head>
-            <meta name="google" content="notranslate"/>
+                <meta name="google" content="notranslate" />
                 <meta charSet="utf-8" />
                 <meta
                     name="viewport"
@@ -27,9 +27,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Meta />
                 <Links />
             </head>
+            <Navbar />
             <body>
-                <Navbar />
-                {children}
+                <div className="pt-20">{children}</div>
                 <ScrollRestoration />
                 <Scripts />
             </body>
