@@ -15,7 +15,7 @@ const PokeAPIquery = `
             height
             base_experience
 
-            pokemon_v2_pokemonmoves {
+            pokemon_v2_pokemonmoves(order_by: {level: asc}) {
                 level
                 pokemon_v2_move {
                   name
@@ -75,7 +75,7 @@ export default function PokemonID() {
     const pokemonMovesData = pokemonJSON.pokemon_v2_pokemon[0].pokemon_v2_pokemonmoves
 
     return (
-        <div className="flex h-screen flex-col pt-28">
+        <div className="flex h-screen flex-col pt-6">
             <div className="h-1/2 mx-20">
                 <PokemonSummary
                     name={pokemonData.name}

@@ -10,9 +10,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-    return (
-        <div className="flex flex-col justify-center">
-            <PokemonDisplay />
-        </div>
-    );
+    return <PokemonDisplay />;
 }

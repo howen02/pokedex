@@ -16,7 +16,7 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="en" translate="no">
             <head>
                 <meta charSet="utf-8" />
                 <meta

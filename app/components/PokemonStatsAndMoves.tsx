@@ -50,7 +50,7 @@ const PokemonStatsAndMoves: React.FC<PokemonStatsAndMovesProps> = ({
                 <div
                     className={`${
                         toggleStatMove ? "" : "hidden"
-                    } bg-red-500 p-4 h-full grid grid-cols-3 gap-4 p-8`}
+                    } bg-red-500 h-full grid grid-cols-3 gap-4 p-8`}
                 >
                     {moves.map((move, index) => (
                         <MoveCard
