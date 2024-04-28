@@ -1,5 +1,6 @@
 import { GraphQLClient } from "graphql-request";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "@remix-run/react";
 
 interface PokemonSearchData {
     id: number;
@@ -7,7 +8,6 @@ interface PokemonSearchData {
 }
 
 const client = new GraphQLClient("https://beta.pokeapi.co/graphql/v1beta");
-
 const PokeAPIquery = `
   query PokeAPIquery($searchQuery: String!) {
     pokemon_v2_pokemon(where: {name: {_like: $searchQuery}}) {
@@ -17,11 +17,15 @@ const PokeAPIquery = `
   }
 `;
 
-client.request(PokeAPIquery, { searchQuery: "char%" });
-
 const Searchbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState<PokemonSearchData[]>([]);
+
+    const navigate = useNavigate();
+    const handleDropdownItemClick = (pokemonId: number) => {
+        navigate(`/pokemons/${pokemonId}`);
+        setSearchResults([]);
+    };
 
     const handleSearch = async () => {
         const data: any = await client.request(PokeAPIquery, {
@@ -29,17 +33,6 @@ const Searchbar = () => {
         });
         setSearchResults(data.pokemon_v2_pokemon);
     };
-
-    const handleClickOutside = () => {
-        setSearchResults([]);
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     return (
         <div className="bg-white p-2 w-1/3 rounded-lg relative">
@@ -76,6 +69,9 @@ const Searchbar = () => {
                             <li
                                 key={pokemon.id}
                                 className="p-2 cursor-pointer hover:bg-gray-200"
+                                onClick={() => {
+                                    handleDropdownItemClick(pokemon.id);
+                                }}
                             >
                                 {pokemon.name}
                             </li>

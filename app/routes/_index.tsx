@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import Navbar from "~/components/Navbar";
+import { GraphQLClient } from "graphql-request";
 import PokemonDisplay from "~/components/PokemonDisplay";
 
 export const meta: MetaFunction = () => {
@@ -12,7 +12,6 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     return (
         <div className="flex flex-col justify-center">
-            <Navbar />
             <PokemonDisplay />
         </div>
     );

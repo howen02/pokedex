@@ -1,9 +1,15 @@
+import { useNavigate } from "@remix-run/react";
 import Searchbar from "./Searchbar";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const returnToHomeScreen = () => {
+        navigate(`/`);
+    };
+
     return (
-        <div className="bg-red-500 flex gap-5 px-5 py-6 items-center">
-            <h1 className="text-4xl font-semibold">Pokemon</h1>
+        <div className="bg-blue-900 flex gap-5 px-5 py-6 items-center">
+            <h1 className="text-4xl text-yellow-400 font-semibold hover:cursor-pointer" onClick={() => returnToHomeScreen()}>Pokemon</h1>
             <Searchbar />
         </div>
     );
