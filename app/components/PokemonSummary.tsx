@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import PokemonTypeCard from "./PokemonTypeCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { parseLocalStorageString, removeDashAndCapitalise } from "~/utils/utils";
+import {
+    parseLocalStorageString,
+    removeDashAndCapitalise,
+} from "~/utils/utils";
 
 interface PokemonSummaryProps {
     id: number;
@@ -67,13 +70,11 @@ const PokemonSummary: React.FC<PokemonSummaryProps> = ({
                     alt={name}
                     width={300}
                     height={300}
-                    className="bg-slate-100 rounded-lg aspect-auto max-w-full"
+                    className="bg-slate-100 rounded-lg aspect-auto"
                 />
                 <div className="sm:mx-10">
-                    <div className="flex mb-4 text-lg">
-                        <PokemonTypeCard types={types} />
-                    </div>
                     <div className="hidden sm:block">
+                        <PokemonTypeCard types={types} />
                         <div className="flex gap-2 my-4 text-lg md:text-2xl text-nowrap">
                             <div className="flex flex-col text-right">
                                 <p>Base Experience</p>

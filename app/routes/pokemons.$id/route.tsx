@@ -49,7 +49,6 @@ export default function PokemonID() {
     const pokemonId = parseInt(params.id || "");
 
     useEffect(() => {
-        document.body.classList.add("overflow-y-hidden");
         const fetchData = async () => {
             try {
                 const data: any = await client.request(PokeAPIquery, {
@@ -61,9 +60,6 @@ export default function PokemonID() {
             }
         };
         fetchData();
-        return () => {
-            document.body.classList.remove("overflow-y-hidden");
-        };
     }, [pokemonId]);
 
     if (!pokemonJSON) {
