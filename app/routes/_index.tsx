@@ -39,6 +39,8 @@ export default function Index() {
         const initialTeamIds: number[] = storedTeamIds
             ? parseLocalStorageString(storedTeamIds)
             : [];
+        console.log(storedTeamIds)
+        console.log(initialTeamIds)
 
         const fetchData = async () => {
             try {
