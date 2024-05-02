@@ -75,7 +75,7 @@ export default function PokemonID() {
 
     return (
         <div className="flex h-screen flex-col overflow-hidden">
-            <div className="h-1/2 mx-20 mt-10">
+            <div className="h-3/4 sm:h-2/3 mx-20 mt-10">
                 <PokemonSummary
                     id={pokemonId}
                     spriteUrl={spriteUrl}

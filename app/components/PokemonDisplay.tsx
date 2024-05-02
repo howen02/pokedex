@@ -1,5 +1,6 @@
 import React from "react";
 import PokemonCard from "./PokemonCard";
+import Loading from "./Loading";
 
 interface PokemonType {
     id: number;
@@ -26,7 +27,19 @@ interface PokemonDisplayProps {
 }
 
 const PokemonDisplay: React.FC<PokemonDisplayProps> = ({ pokedexJSON }) => {
-    if (!pokedexJSON) return <div></div>;
+    if (!pokedexJSON) return <Loading />;
+
+    if (
+        !pokedexJSON.pokemon_v2_pokemon ||
+        pokedexJSON.pokemon_v2_pokemon.length === 0
+    ) {
+        return (
+            <div className="flex h-screen justify-center items-center text-4xl font-bold">
+                No Pokemon Owned
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col items-center bg-slate-100 min-h-screen pb-6">
             <h1 className="font-bold text-4xl my-6 ">Pokemon Owned</h1>
